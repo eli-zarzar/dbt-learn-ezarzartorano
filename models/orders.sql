@@ -15,6 +15,7 @@ final as (
 
     select
         stg_orders.order_id,
+        stg_orders.order_date,
         stg_orders.customer_id,
         payments.amount,
         payments.status
