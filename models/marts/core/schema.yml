@@ -1,0 +1,33 @@
+version: 2
+
+models:
+  - name: customers
+    description: One record per customer
+    columns:
+      - name: customer_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
+      - name: first_order_date
+        description: NULL when a customer has not yet placed an order.
+
+  - name: orders
+    description: One record per order
+    columns:
+      - name: payment_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
+      - name: status
+        tests:
+          - accepted_values:
+              values: ['success','fail']
+      - name: amount
+        description: Amount in USD
+        tests:
+          - better_than_before:
+              date_or_ts_column: order_date
+              severity: warn
+
